@@ -12,13 +12,13 @@ A peaceful farm simulation game built with Phaser 3 and TypeScript. Manage your 
 
 ## Play the Game
 
-You can play the game directly in your browser at: [https://[your-github-username].github.io/herd-phaser/](https://[your-github-username].github.io/herd-phaser/)
+You can play the game directly in your browser at: [https://silverveskilt.github.io/herd-phaser/](https://silverveskilt.github.io/herd-phaser/)
 
 ## Development Setup
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/[your-github-username]/herd-phaser.git
+git clone https://github.com/silverveskilt/herd-phaser.git
 cd herd-phaser
 ```
 
