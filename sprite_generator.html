@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sprite Generator</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            margin: 10px;
+        }
+        .sprite-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="sprite-container" id="sprites"></div>
+    <script>
+        function createCanvas(width, height) {
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            return canvas;
+        }
+
+        function drawSprite(name, width, height, drawFunc) {
+            const canvas = createCanvas(width, height);
+            const ctx = canvas.getContext('2d');
+            
+            // Clear canvas
+            ctx.fillStyle = 'transparent';
+            ctx.fillRect(0, 0, width, height);
+            
+            // Draw the sprite
+            drawFunc(ctx);
+            
+            // Add to page
+            const container = document.getElementById('sprites');
+            const div = document.createElement('div');
+            div.style.textAlign = 'center';
+            div.appendChild(canvas);
+            const label = document.createElement('div');
+            label.textContent = name;
+            div.appendChild(label);
+            container.appendChild(div);
+            
+            // Download link
+            const link = document.createElement('a');
+            link.download = name + '.png';
+            link.href = canvas.toDataURL('image/png');
+            link.textContent = 'Download';
+            div.appendChild(link);
+        }
+
+        // Generate grass tile
+        drawSprite('grass', 32, 32, (ctx) => {
+            ctx.fillStyle = '#90EE90';
+            ctx.fillRect(0, 0, 32, 32);
+            ctx.strokeStyle = '#32CD32';
+            ctx.beginPath();
+            for (let i = 0; i < 4; i++) {
+                ctx.moveTo(Math.random() * 32, Math.random() * 32);
+                ctx.lineTo(Math.random() * 32, Math.random() * 32);
+            }
+            ctx.stroke();
+        });
+
+        // Generate plot tile
+        drawSprite('plot', 32, 32, (ctx) => {
+            ctx.fillStyle = '#8B4513';
+            ctx.fillRect(0, 0, 32, 32);
+            ctx.fillStyle = '#654321';
+            for (let i = 0; i < 5; i++) {
+                ctx.fillRect(
+                    Math.random() * 24 + 4,
+                    Math.random() * 24 + 4,
+                    4,
+                    4
+                );
+            }
+        });
+
+        // Generate barn (96x96)
+        drawSprite('barn', 96, 96, (ctx) => {
+            // Main barn structure
+            ctx.fillStyle = '#AA0000';  // Dark red
+            ctx.fillRect(12, 36, 72, 60);  // Main building
+
+            // Roof
+            ctx.fillStyle = '#8B0000';  // Darker red
+            ctx.beginPath();
+            ctx.moveTo(6, 36);    // Left edge
+            ctx.lineTo(48, 6);    // Peak
+            ctx.lineTo(90, 36);   // Right edge
+            ctx.fill();
+
+            // Door
+            ctx.fillStyle = '#654321';  // Brown
+            ctx.fillRect(40, 66, 16, 30);
+
+            // Windows
+            ctx.fillStyle = '#87CEEB';  // Sky blue
+            ctx.fillRect(20, 46, 12, 12);  // Left window
+            ctx.fillRect(64, 46, 12, 12);  // Right window
+
+            // Window frames
+            ctx.strokeStyle = '#654321';  // Brown
+            ctx.lineWidth = 2;
+            ctx.strokeRect(20, 46, 12, 12);
+            ctx.strokeRect(64, 46, 12, 12);
+
+            // Roof detail lines
+            ctx.strokeStyle = '#8B0000';
+            ctx.beginPath();
+            for(let i = 0; i < 5; i++) {
+                ctx.moveTo(12 + i*18, 36);
+                ctx.lineTo(48, 6);
+            }
+            ctx.stroke();
+        });
+
+        // Generate player
+        drawSprite('player', 32, 32, (ctx) => {
+            ctx.fillStyle = '#4169E1';
+            ctx.fillRect(12, 8, 8, 16);  // body
+            ctx.fillRect(8, 12, 16, 8);  // arms
+            ctx.fillRect(14, 24, 4, 8);  // legs
+            ctx.fillStyle = '#FFE4B5';
+            ctx.fillRect(12, 2, 8, 8);   // head
+        });
+
+        // Generate chicken
+        drawSprite('chicken', 32, 32, (ctx) => {
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(12, 16, 8, 8);  // body
+            ctx.fillRect(14, 12, 4, 4);  // head
+            ctx.fillStyle = '#FFD700';
+            ctx.fillRect(16, 14, 2, 2);  // beak
+            ctx.fillRect(12, 24, 2, 4);  // legs
+            ctx.fillRect(18, 24, 2, 4);  // legs
+        });
+
+        // Generate cow (48x32)
+        drawSprite('cow', 48, 32, (ctx) => {
+            // Body
+            ctx.fillStyle = '#FFFFFF';  // White base
+            ctx.fillRect(8, 8, 32, 16);  // Main body
+            
+            // Black spots
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(12, 8, 8, 8);   // Spot 1
+            ctx.fillRect(28, 12, 8, 8);  // Spot 2
+            
+            // Head
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(4, 12, 8, 8);   // Head
+            
+            // Ears
+            ctx.fillStyle = '#FFE4B5';
+            ctx.fillRect(2, 10, 4, 4);   // Left ear
+            ctx.fillRect(6, 10, 4, 4);   // Right ear
+            
+            // Legs
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(12, 24, 4, 6);  // Front leg
+            ctx.fillRect(20, 24, 4, 6);  // Middle front leg
+            ctx.fillRect(28, 24, 4, 6);  // Middle back leg
+            ctx.fillRect(36, 24, 4, 6);  // Back leg
+            
+            // Face details
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(4, 14, 2, 2);   // Eye
+            
+            // Udder
+            ctx.fillStyle = '#FFE4B5';
+            ctx.fillRect(24, 20, 8, 4);  // Udder
+        });
+
+        // Generate bull (64x48)
+        drawSprite('bull', 64, 48, (ctx) => {
+            // Body
+            ctx.fillStyle = '#4A4A4A';  // Dark gray base
+            ctx.fillRect(12, 12, 40, 24);  // Main body
+            
+            // Head
+            ctx.fillStyle = '#4A4A4A';
+            ctx.fillRect(6, 16, 12, 12);   // Head
+            
+            // Horns
+            ctx.fillStyle = '#D4AF37';  // Gold color
+            ctx.fillRect(2, 14, 6, 4);   // Left horn
+            ctx.fillRect(8, 14, 6, 4);   // Right horn
+            
+            // Ears
+            ctx.fillStyle = '#363636';  // Darker gray
+            ctx.fillRect(4, 18, 4, 4);   // Left ear
+            ctx.fillRect(10, 18, 4, 4);  // Right ear
+            
+            // Legs (thicker than cow)
+            ctx.fillStyle = '#4A4A4A';
+            ctx.fillRect(16, 36, 6, 10);  // Front leg
+            ctx.fillRect(26, 36, 6, 10);  // Middle front leg
+            ctx.fillRect(36, 36, 6, 10);  // Middle back leg
+            ctx.fillRect(46, 36, 6, 10);  // Back leg
+            
+            // Face details
+            ctx.fillStyle = '#FF0000';  // Red eyes for aggressive look
+            ctx.fillRect(6, 20, 3, 3);   // Left eye
+            
+            // Nose
+            ctx.fillStyle = '#363636';
+            ctx.fillRect(2, 22, 4, 4);   // Nose
+            
+            // Muscle definition
+            ctx.strokeStyle = '#363636';
+            ctx.beginPath();
+            ctx.moveTo(12, 24);
+            ctx.lineTo(52, 24);
+            ctx.stroke();
+        });
+    </script>
+</body>
+</html> 
