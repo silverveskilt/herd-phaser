@@ -1,13 +1,21 @@
 {
-  "name": "phaser-farm",
+  "name": "herd-phaser",
   "version": "1.0.0",
-  "description": "A simple farm game using Phaser",
+  "description": "A peaceful farm simulation game built with Phaser 3",
   "main": "src/index.ts",
   "scripts": {
     "start": "webpack serve --mode development",
     "start:custom": "PORT=$PORT webpack serve --mode development",
     "build": "webpack --mode production"
   },
+  "keywords": [
+    "phaser",
+    "game",
+    "farm",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
   "dependencies": {
     "phaser": "^3.70.0"
   },

@@ -1,4 +1,4 @@
-# Herd Unity
+# Herd Phaser
 
 A peaceful farm simulation game built with Phaser 3 and TypeScript. Manage your farm, interact with animals, and enjoy the tranquil countryside atmosphere.
 
@@ -12,14 +12,14 @@ A peaceful farm simulation game built with Phaser 3 and TypeScript. Manage your 
 
 ## Play the Game
 
-You can play the game directly in your browser at: [https://[your-github-username].github.io/herd-unity/](https://[your-github-username].github.io/herd-unity/)
+You can play the game directly in your browser at: [https://[your-github-username].github.io/herd-phaser/](https://[your-github-username].github.io/herd-phaser/)
 
 ## Development Setup
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/[your-github-username]/herd-unity.git
-cd herd-unity
+git clone https://github.com/[your-github-username]/herd-phaser.git
+cd herd-phaser
 ```
 
 2. Install dependencies:
